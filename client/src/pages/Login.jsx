@@ -19,7 +19,7 @@ function Login() {
         ? { email: form.email, password: form.password }
         : { email: "", phone: form.phone, password: form.password }; 
     try {
-      const res = await axios.post("http://localhost:5001/api/auth/login", payload);
+      const res = await axios.post("https://splitr-2grq.onrender.com/api/auth/login", payload);
       localStorage.setItem("token", res.data.token);
       navigate("/dashboard");
     } catch (err) {

@@ -13,7 +13,7 @@ function Dashboard() {
   useEffect(() => {
     async function fetchUser() {
       try {
-        const res = await axios.get("http://localhost:5001/api/auth/me", {
+        const res = await axios.get("https://splitr-2grq.onrender.com/api/auth/me", {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
         });
 

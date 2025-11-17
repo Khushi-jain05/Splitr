@@ -25,7 +25,7 @@ function Signup() {
     }
 
     try {
-      await axios.post("http://localhost:5001/api/auth/signup", {
+      await axios.post("https://splitr-2grq.onrender.com/api/auth/signup", {
         name: form.name,
         email: form.email,
         password: form.password,
