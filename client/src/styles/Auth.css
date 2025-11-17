@@ -1,0 +1,137 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+
+body {
+  background: #0b0d10;
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  color: white;
+}
+
+.splitr-login-page {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.title-main {
+  margin: 0;
+  font-size: 36px;
+  font-weight: 700;
+  color: #2fe0b0;
+}
+
+.title-sub {
+  margin-top: 5px;
+  margin-bottom: 8px;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.title-text {
+  color: #8f9ba8;
+  margin-bottom: 40px;
+  font-size: 14px;
+}
+
+.login-card {
+  width: 420px;
+  margin: auto;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 32px;
+  border-radius: 22px;
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 60px rgba(0, 255, 180, 0.08);
+}
+
+.login-tabs {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 25px;
+}
+
+.login-tabs button {
+  flex: 1;
+  padding: 12px 0;
+  background: transparent;
+  border: none;
+  color: #8da0a8;
+  font-size: 14px;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+}
+
+.login-tabs .active {
+  color: #31e0b4;
+  border-bottom: 2px solid #31e0b4;
+}
+
+.login-form {
+  text-align: left;
+}
+
+label {
+  font-size: 13px;
+  margin-bottom: 6px;
+  display: block;
+  color: #d7dde4;
+}
+
+input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 14px;
+  margin-bottom: 18px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+  box-sizing: border-box;
+}
+
+input::placeholder {
+  color: #74828e;
+}
+
+.forgot-pass {
+  display: block;
+  text-align: right;
+  font-size: 12px;
+  color: #34d6a4;
+  text-decoration: none;
+  margin-bottom: 20px;
+}
+
+.splitr-btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: 18px;
+  border: none;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  color: white;
+  background: linear-gradient(90deg, #3fb87d, #2ea36d);
+  box-shadow: 0 0 20px rgba(66, 255, 153, 0.3);
+}
+
+.signup-text {
+  margin-top: 15px;
+  font-size: 13px;
+  color: #9aa9b5;
+}
+
+.signup-text a {
+  color: #34d6a4;
+  text-decoration: none;
+}
+
+.login-footer {
+  margin-top: 25px;
+  font-size: 12px;
+  color: #6f7b88;
+}
+html, body {
+  background: #0b0d10 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  height: 100%;
+}
