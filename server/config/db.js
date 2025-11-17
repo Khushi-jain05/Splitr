@@ -1,4 +1,12 @@
 const mysql = require("mysql2");
+const fs = require("fs");
+const path = require("path");
+
+// ✅ ADD THESE LINES HERE
+const caPath = path.join(__dirname, "../ca.pem");
+console.log("CA Path:", caPath);
+console.log("File exists?", fs.existsSync(caPath));
+// ------------------------
 
 const db = mysql.createConnection({
   host: process.env.DB_HOST,
@@ -7,19 +15,16 @@ const db = mysql.createConnection({
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
   ssl: {
-    rejectUnauthorized: true
+    ca: fs.readFileSync(caPath)
   }
 });
 
-db.connect((err) => {
+db.connect(err => {
   if (err) {
     console.error("❌ MySQL connection error:", err);
-    return;
+  } else {
+    console.log("✅ Connected to Aiven MySQL");
   }
-  console.log("✅ Connected to Aiven MySQL");
 });
 
 module.exports = db;
-
-
-

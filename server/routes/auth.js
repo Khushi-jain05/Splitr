@@ -7,23 +7,7 @@ require("dotenv").config();
 
 const JWT_SECRET = process.env.JWT_SECRET;
 const verifyToken = require("../middleware/authMiddleware");
--
-router.get("/me", verifyToken, (req, res) => {
-  const userId = req.user.id;
 
-  db.query(
-    "SELECT id, name, email FROM users WHERE id = ?",
-    [userId],
-    (err, result) => {
-      if (err) return res.status(500).json({ error: err });
-
-      if (result.length === 0)
-        return res.status(404).json({ message: "User not found" });
-
-      res.json(result[0]);
-    }
-  );
-});
 
 
 router.post("/signup", (req, res) => {
@@ -49,6 +33,7 @@ router.post("/signup", (req, res) => {
     );
   });
 });
+
 
 
 router.post("/login", (req, res) => {
@@ -79,8 +64,10 @@ router.post("/login", (req, res) => {
   });
 });
 
+
+
 router.get("/me", verifyToken, (req, res) => {
-  const userId = req.user.id; 
+  const userId = req.user.id;
 
   db.query(
     "SELECT id, name, email FROM users WHERE id = ?",
@@ -91,7 +78,7 @@ router.get("/me", verifyToken, (req, res) => {
       if (result.length === 0)
         return res.status(404).json({ message: "User not found" });
 
-      res.json(result[0]); 
+      res.json(result[0]);
     }
   );
 });
