@@ -8,12 +8,14 @@ app.use(
   cors({
     origin: [
       "http://localhost:3000",
-      "https://splitr-git-main-khushijains-projects.vercel.app"
+      "https://splitr-git-main-khushijains-projects.vercel.app", 
+      "https://splitr-sepia.vercel.app"                          
     ],
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true,
   })
 );
+
 
 
 app.use(express.json());
