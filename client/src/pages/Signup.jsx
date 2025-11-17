@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate, Link } from "react-router-dom"; 
-import "../styles/Signup.css"; 
+import { useNavigate, Link } from "react-router-dom";
+import "../styles/Signup.css";
 
 function Signup() {
   const [form, setForm] = useState({
@@ -12,6 +12,9 @@ function Signup() {
   });
 
   const navigate = useNavigate();
+
+  // ⭐ API BASE URL (local or production)
+  const API_URL = process.env.REACT_APP_API_URL;
 
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -25,16 +28,16 @@ function Signup() {
     }
 
     try {
-      await axios.post("https://splitr-2grq.onrender.com/api/auth/signup", {
+      await axios.post(`${API_URL}/api/auth/signup`, {
         name: form.name,
         email: form.email,
         password: form.password,
       });
 
       alert("Signup successful! Please login.");
-      navigate("/");     
+      navigate("/");
     } catch (err) {
-      console.error(err);
+      console.error("SIGNUP ERROR: ", err);
       alert("Signup failed. Try again.");
     }
   };
@@ -48,13 +51,12 @@ function Signup() {
       </p>
 
       <div className="signup-card">
-
         <form onSubmit={handleSubmit} className="signup-form">
-
+          
           <label>Full Name</label>
           <input
             name="name"
-            placeholder="Enter your full name"   
+            placeholder="Enter your full name"
             value={form.name}
             onChange={handleChange}
             required
@@ -64,7 +66,7 @@ function Signup() {
           <input
             name="email"
             type="email"
-            placeholder="Enter your email"      
+            placeholder="Enter your email"
             value={form.email}
             onChange={handleChange}
             required
@@ -74,7 +76,7 @@ function Signup() {
           <input
             name="password"
             type="password"
-            placeholder="Create password"        
+            placeholder="Create password"
             value={form.password}
             onChange={handleChange}
             required
@@ -84,7 +86,7 @@ function Signup() {
           <input
             name="confirmPassword"
             type="password"
-            placeholder="Re-enter password"     
+            placeholder="Re-enter password"
             value={form.confirmPassword}
             onChange={handleChange}
             required
@@ -94,9 +96,8 @@ function Signup() {
         </form>
 
         <p className="login-text">
-          Already have an account? <Link to="/">Login</Link>   
+          Already have an account? <Link to="/">Login</Link>
         </p>
-
       </div>
 
       <footer className="signup-footer">

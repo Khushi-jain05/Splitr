@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate, Link } from "react-router-dom";  
+import { useNavigate, Link } from "react-router-dom";
 import "../styles/Auth.css";
+
+// 🔥 Use environment variable (works on Vercel + Local)
+const API_URL = process.env.REACT_APP_API_URL;
 
 function Login() {
   const [form, setForm] = useState({ email: "", phone: "", password: "" });
@@ -17,12 +20,15 @@ function Login() {
     const payload =
       tab === "email"
         ? { email: form.email, password: form.password }
-        : { email: "", phone: form.phone, password: form.password }; 
+        : { email: "", phone: form.phone, password: form.password };
+
     try {
-      const res = await axios.post("https://splitr-2grq.onrender.com/api/auth/login", payload);
+      const res = await axios.post(`${API_URL}/api/auth/login`, payload);
+
       localStorage.setItem("token", res.data.token);
       navigate("/dashboard");
     } catch (err) {
+      console.error(err);
       alert("Invalid credentials.");
     }
   };
@@ -95,7 +101,6 @@ function Login() {
           <button className="splitr-btn" type="submit">Sign In Now</button>
         </form>
 
-        
         <p className="signup-text">
           Don’t have access yet? <Link to="/signup">Sign Up</Link>
         </p>
