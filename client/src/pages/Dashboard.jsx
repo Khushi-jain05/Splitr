@@ -3,11 +3,13 @@ import axios from "axios";
 import "../styles/Dashboard.css";
 import Navbar from "../components/Navbar";
 import { enableTilt } from "../utils/tilt";
+import { useNavigate } from "react-router-dom";   
 
 function Dashboard() {
   const [user, setUser] = useState(null);
+  const navigate = useNavigate();  
 
-  // Fetch user from backend (NETWORK WILL SHOW THIS)
+  
   useEffect(() => {
     async function fetchUser() {
       try {
@@ -25,7 +27,7 @@ function Dashboard() {
     fetchUser();
   }, []);
 
-  // Tilt animation
+
   useEffect(() => {
     const card = document.querySelector(".visual-wrap");
     if (card) enableTilt(card);
@@ -37,7 +39,7 @@ function Dashboard() {
 
       <main className="dashboard-hero fade-in-up">
         <section className="hero-left">
-          {/* ⭐ FIXED fallback so no undefined */}
+          
           <p className="hero-kicker">Welcome, {user?.name || "Explorer"}</p>
 
           <h1 className="hero-title">
@@ -52,7 +54,14 @@ function Dashboard() {
           </p>
 
           <div className="hero-cta">
-            <button className="splitr-btn primary">Start a Trip</button>
+            
+            <button 
+              className="splitr-btn primary"
+              onClick={() => navigate("/")}    
+            >
+              Start a Trip
+            </button>
+
             <button className="splitr-btn ghost">How it Works</button>
           </div>
         </section>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate, Link } from "react-router-dom";  // ⭐ FIXED
+import { useNavigate, Link } from "react-router-dom";  
 import "../styles/Auth.css";
 
 function Login() {
@@ -17,8 +17,7 @@ function Login() {
     const payload =
       tab === "email"
         ? { email: form.email, password: form.password }
-        : { email: "", phone: form.phone, password: form.password }; // ❗ phone not supported yet
-
+        : { email: "", phone: form.phone, password: form.password }; 
     try {
       const res = await axios.post("http://localhost:5001/api/auth/login", payload);
       localStorage.setItem("token", res.data.token);
@@ -96,7 +95,7 @@ function Login() {
           <button className="splitr-btn" type="submit">Sign In Now</button>
         </form>
 
-        {/* ⭐ FIXED ONLY THIS LINE — NO UI CHANGE */}
+        
         <p className="signup-text">
           Don’t have access yet? <Link to="/signup">Sign Up</Link>
         </p>

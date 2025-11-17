@@ -18,7 +18,7 @@ app.get("/", (req, res) => {
   res.send("✅ Splitr backend is running...");
 });
 
-// Routes
+
 const authRoutes = require("./routes/auth");
 app.use("/api/auth", authRoutes);
 

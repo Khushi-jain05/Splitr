@@ -32,7 +32,7 @@ function Signup() {
       });
 
       alert("Signup successful! Please login.");
-      navigate("/");     // redirect to login
+      navigate("/");     
     } catch (err) {
       console.error(err);
       alert("Signup failed. Try again.");
@@ -54,7 +54,7 @@ function Signup() {
           <label>Full Name</label>
           <input
             name="name"
-            placeholder="Enter your full name"   // ⭐ RESTORED
+            placeholder="Enter your full name"   
             value={form.name}
             onChange={handleChange}
             required
@@ -64,7 +64,7 @@ function Signup() {
           <input
             name="email"
             type="email"
-            placeholder="Enter your email"       // ⭐ RESTORED
+            placeholder="Enter your email"      
             value={form.email}
             onChange={handleChange}
             required
@@ -74,7 +74,7 @@ function Signup() {
           <input
             name="password"
             type="password"
-            placeholder="Create password"        // ⭐ RESTORED
+            placeholder="Create password"        
             value={form.password}
             onChange={handleChange}
             required
@@ -84,7 +84,7 @@ function Signup() {
           <input
             name="confirmPassword"
             type="password"
-            placeholder="Re-enter password"      // ⭐ RESTORED
+            placeholder="Re-enter password"     
             value={form.confirmPassword}
             onChange={handleChange}
             required
@@ -94,7 +94,7 @@ function Signup() {
         </form>
 
         <p className="login-text">
-          Already have an account? <Link to="/">Login</Link>   {/* ⭐ FIXED */}
+          Already have an account? <Link to="/">Login</Link>   
         </p>
 
       </div>

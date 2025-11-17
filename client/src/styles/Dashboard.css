@@ -1,4 +1,4 @@
-/* ---------- GLOBAL ---------- */
+
 .splitr-dashboard {
   background: radial-gradient(circle at center,
       rgba(0, 255, 140, 0.10),
@@ -26,7 +26,7 @@
   }
 }
 
-/* ---------- HERO SECTION ---------- */
+
 
 .dashboard-hero {
   display: flex;
@@ -36,7 +36,7 @@
   gap: 4rem;
 }
 
-/* LEFT SIDE */
+
 .hero-left {
   max-width: 520px;
 }
@@ -100,7 +100,7 @@
   opacity: 0.8;
 }
 
-/* ---------- RIGHT VISUAL ---------- */
+
 
 .hero-right {
   position: relative;
@@ -126,13 +126,13 @@
   animation: pulse 2.8s infinite ease-in-out;
 }
 
-/* @keyframes pulse {
+ @keyframes pulse {
   0% { box-shadow: 0 0 80px rgba(0, 255, 140, 0.674) }
   50% { box-shadow: 0 0 140px rgba(0, 255, 140, 0.765) }
   100% { box-shadow: 0 0 80px rgba(0, 255, 140, 0.468) }
-} */
+} 
 
-/* floating card in middle */
+
 .floating-card {
   width: 280px;
   height: 420px;
@@ -155,7 +155,7 @@
   100% { transform: translateY(-5px); }
 }
 
-/* glowing ring */
+
 .ring {
   position: absolute;
   inset: -20px;
@@ -164,7 +164,7 @@
   filter: blur(6px);
 }
 
-/* glowing dot */
+
 .orb {
   position: absolute;
   top: 40%;
@@ -176,7 +176,7 @@
   box-shadow: 0 0 25px rgba(0, 255, 140, 1);
 }
 
-/* glossy shine */
+
 .shine {
   position: absolute;
   top: 0;
@@ -192,7 +192,6 @@
   filter: blur(20px);
 }
 
-/* ---------- METRIC CARDS ---------- */
 
 .dashboard-cards {
   display: flex;

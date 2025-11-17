@@ -5,7 +5,7 @@ function LoadingBar() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setTimeout(() => setLoading(false), 1500); // simulate page load
+    setTimeout(() => setLoading(false), 1500); 
   }, []);
 
   return (

@@ -12,7 +12,7 @@ body {
   margin-top: 40px;
 }
 
-/* Titles Same as Login */
+
 .title-main {
   margin: 0;
   font-size: 36px;
@@ -32,7 +32,7 @@ body {
   margin-bottom: 40px;
 }
 
-/* Signup Card */
+
 .signup-card {
   width: 420px;
   margin: auto;
@@ -69,7 +69,7 @@ input::placeholder {
   color: #74828e;
 }
 
-/* Splitr Green Gradient Button */
+
 .splitr-btn {
   width: 100%;
   padding: 14px;
@@ -83,7 +83,7 @@ input::placeholder {
   box-shadow: 0 0 20px rgba(66, 255, 153, 0.3);
 }
 
-/* Login link under signup */
+
 .login-text {
   margin-top: 15px;
   font-size: 13px;
@@ -95,7 +95,7 @@ input::placeholder {
   text-decoration: none;
 }
 
-/* Footer */
+
 .signup-footer {
   margin-top: 25px;
   font-size: 12px;

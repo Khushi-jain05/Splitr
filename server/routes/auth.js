@@ -7,10 +7,7 @@ require("dotenv").config();
 
 const JWT_SECRET = process.env.JWT_SECRET;
 const verifyToken = require("../middleware/authMiddleware");
-
-// ------------------------------
-// 🔐 Get logged-in user info
-// ------------------------------
+-
 router.get("/me", verifyToken, (req, res) => {
   const userId = req.user.id;
 
@@ -28,9 +25,7 @@ router.get("/me", verifyToken, (req, res) => {
   );
 });
 
-// ------------------------------
-// 📝 Signup
-// ------------------------------
+
 router.post("/signup", (req, res) => {
   const { name, email, password } = req.body;
 
@@ -55,9 +50,7 @@ router.post("/signup", (req, res) => {
   });
 });
 
-// ------------------------------
-// 🔑 Login
-// ------------------------------
+
 router.post("/login", (req, res) => {
   const { email, password } = req.body;
 
@@ -79,15 +72,15 @@ router.post("/login", (req, res) => {
     const token = jwt.sign(
       { id: user.id, email: user.email },
       JWT_SECRET,
-      { expiresIn: "2h" }
+      { expiresIn: "30d" }
     );
 
     res.json({ message: "Login successful", token });
   });
 });
-// 🔥 GET LOGGED-IN USER — REQUIRED FOR DASHBOARD
+
 router.get("/me", verifyToken, (req, res) => {
-  const userId = req.user.id; // coming from token
+  const userId = req.user.id; 
 
   db.query(
     "SELECT id, name, email FROM users WHERE id = ?",
@@ -98,7 +91,7 @@ router.get("/me", verifyToken, (req, res) => {
       if (result.length === 0)
         return res.status(404).json({ message: "User not found" });
 
-      res.json(result[0]); // send { id, name, email }
+      res.json(result[0]); 
     }
   );
 });
