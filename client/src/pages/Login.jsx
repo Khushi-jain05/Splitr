@@ -3,8 +3,10 @@ import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import "../styles/Auth.css";
 
-// 🔥 Use environment variable (works on Vercel + Local)
-const API_URL = process.env.REACT_APP_API_URL;
+// 🔥 Auto-detect API (Local OR Vercel)
+const API_URL =
+  process.env.REACT_APP_API_URL?.trim() ||
+  "http://localhost:10000"; // fallback for local dev
 
 function Login() {
   const [form, setForm] = useState({ email: "", phone: "", password: "" });
@@ -20,7 +22,7 @@ function Login() {
     const payload =
       tab === "email"
         ? { email: form.email, password: form.password }
-        : { email: "", phone: form.phone, password: form.password };
+        : { phone: form.phone, password: form.password };
 
     try {
       const res = await axios.post(`${API_URL}/api/auth/login`, payload);
@@ -28,8 +30,8 @@ function Login() {
       localStorage.setItem("token", res.data.token);
       navigate("/dashboard");
     } catch (err) {
-      console.error(err);
-      alert("Invalid credentials.");
+      console.error("LOGIN ERROR:", err);
+      alert("Invalid credentials or server issue.");
     }
   };
 

@@ -9,3 +9,5 @@ client/.env
 # Server
 server/node_modules/
 server/.env
+# Allow SSL certificate
+!server/ca.pem
