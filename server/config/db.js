@@ -20,8 +20,9 @@ const db = mysql.createConnection({
   database: process.env.DB_NAME,
 
   ssl: {
+    minVersion: "TLSv1.2",     // ⭐ REQUIRED BY AIVEN
     ca: fs.readFileSync(caPath),
-    rejectUnauthorized: false   // ⭐ FIXED
+    rejectUnauthorized: false  // ⭐ REQUIRED FIX
   }
 });
 
