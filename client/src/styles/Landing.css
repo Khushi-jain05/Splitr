@@ -1,0 +1,362 @@
+/* ==========================================================
+   GLOBAL LANDING PAGE STYLE — Elegant Neo Teal
+========================================================== */
+
+.landing-page {
+  background: radial-gradient(circle at center,
+      rgba(47, 224, 176, 0.08),
+      rgba(0, 0, 0, 0.9),
+      #000);
+  font-family: "Inter", sans-serif;
+  color: #ffffff;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.landing-page .landing-navbar-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  z-index: 10;
+  padding-top: 20px;
+}
+
+
+/* ==========================================================
+   HERO SECTION (Portal Neo-Teal)
+========================================================== */
+
+.landing-page .neo-portal-hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8rem 8rem;
+  gap: 2rem;
+  position: relative;
+}
+
+/* LEFT TEXT */
+
+.landing-page .portal-left h1 {
+  font-size: 4.2rem;
+  font-weight: 800;
+  line-height: 1.1;
+  background: linear-gradient(180deg, #ffffff, #2fe0b0);
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: fadeUp 0.8s ease-out forwards;
+}
+
+.landing-page .portal-left p {
+  color: rgba(255,255,255,0.75);
+  max-width: 450px;
+  font-size: 1.2rem;
+  line-height: 1.7;
+  margin: 1.4rem 0 2.2rem;
+  animation: fadeUp 1s ease-out forwards;
+}
+
+.landing-page .portal-btn {
+  padding: 1rem 2.6rem;
+  border-radius: 45px;
+  background: #2fe0b0;
+  color: #000;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s ease;
+  animation: fadeUp 1.2s ease-out forwards;
+}
+
+.landing-page .portal-btn:hover {
+  transform: translateY(-5px);
+  box-shadow:
+    0 0 25px rgba(47,224,176,0.4),
+    0 10px 25px rgba(0,0,0,0.4);
+}
+
+
+/* ==========================================================
+   PORTAL RIGHT — 3D Minimal Glow
+========================================================== */
+
+.landing-page .portal-right {
+  position: relative;
+  width: 480px;
+  height: 480px;
+  animation: fadeIn 1s ease-out forwards;
+}
+
+.landing-page .portal-base {
+  width: 340px;
+  height: 340px;
+  background: radial-gradient(circle, #0d0d12, #000);
+  border-radius: 50%;
+  position: absolute;
+  top: 120px;
+  left: 70px;
+  filter: blur(3px);
+
+  box-shadow:
+    0 0 40px rgba(47,224,176,0.08);
+}
+
+.landing-page .portal-ring {
+  width: 370px;
+  height: 370px;
+  border-radius: 50%;
+  position: absolute;
+  top: 105px;
+  left: 55px;
+
+  background: radial-gradient(
+    circle,
+    rgba(47,224,176,0.85),
+    rgba(47,224,176,0.25),
+    rgba(0,0,0,0)
+  );
+
+  animation: portalPulse 3s infinite ease-in-out;
+}
+
+.landing-page .portal-core {
+  width: 200px;
+  height: 120px;
+  border-radius: 30px;
+  position: absolute;
+  top: 160px;
+  left: 150px;
+
+  background: linear-gradient(135deg, #2fe0b0, #159f7c, #0a4e38);
+
+  box-shadow:
+    0 0 30px rgba(47,224,176,0.65),
+    0 0 55px rgba(47,224,176,0.35),
+    0 20px 40px rgba(0,0,0,0.45);
+
+  animation: floatCore 4s infinite ease-in-out;
+}
+
+
+/* ==========================================================
+   SECTION TITLES
+========================================================== */
+
+.landing-page .section-title {
+  text-align: center;
+  font-size: 2.4rem;
+  margin-bottom: 2.5rem;
+  font-weight: 700;
+  background: linear-gradient(180deg, #ffffff, #2fe0b0);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+
+/* ==========================================================
+   BENEFIT CARDS — Elegant Neo-Glass
+========================================================== */
+
+.landing-page .benefits-section {
+  padding: 4rem 8rem;
+}
+
+.landing-page .benefit-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+}
+
+.landing-page .benefit-card {
+  padding: 2rem;
+  border-radius: 18px;
+
+  background: rgba(255,255,255,0.035);
+  backdrop-filter: blur(12px);
+
+  border: 1px solid rgba(47,224,176,0.18);
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,0.45),
+    0 0 18px rgba(47,224,176,0.12);
+
+  transition: 0.35s ease;
+  animation: fadeUp 1s ease-out forwards;
+}
+
+.landing-page .benefit-card:hover {
+  transform: translateY(-8px);
+  box-shadow:
+    0 16px 32px rgba(0,0,0,0.55),
+    0 0 28px rgba(47,224,176,0.18);
+}
+
+
+/* ==========================================================
+   FEATURE CARDS — Smooth Neo Glass
+========================================================== */
+
+.landing-page .features-section {
+  padding: 4rem 8rem;
+}
+
+.landing-page .features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.landing-page .feature-card {
+  padding: 2rem;
+  border-radius: 20px;
+
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(47,224,176,0.16);
+  backdrop-filter: blur(14px);
+
+  box-shadow:
+    0 10px 28px rgba(0,0,0,0.45),
+    0 0 20px rgba(47,224,176,0.12);
+
+  transition: 0.35s ease;
+  animation: fadeUp 1s ease-out forwards;
+}
+
+.landing-page .feature-card:hover {
+  transform: translateY(-8px);
+  box-shadow:
+    0 18px 34px rgba(0,0,0,0.55),
+    0 0 25px rgba(47,224,176,0.18);
+}
+
+
+/* ==========================================================
+   TESTIMONIAL CARDS
+========================================================== */
+
+.landing-page .testimonials-section {
+  padding: 4rem 8rem;
+}
+
+.landing-page .testimonials-grid {
+  display: flex;
+  gap: 2rem;
+}
+
+.landing-page .testimonial {
+  flex: 1;
+  padding: 2rem;
+  border-radius: 18px;
+
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(47,224,176,0.14);
+  backdrop-filter: blur(10px);
+
+  box-shadow:
+    0 12px 30px rgba(0,0,0,0.45),
+    0 0 15px rgba(47,224,176,0.10);
+
+  transition: 0.3s ease;
+  animation: fadeUp 1s ease-out forwards;
+}
+
+.landing-page .testimonial:hover {
+  transform: translateY(-6px);
+}
+
+
+/* ==========================================================
+   CTA — Premium Teal Button
+========================================================== */
+
+.landing-page .cta-section {
+  text-align: center;
+  padding: 5rem 2rem;
+}
+
+.landing-page .big {
+  padding: 1.2rem 3rem;
+  border-radius: 45px;
+  background: #2fe0b0;
+  color: #000;
+  border: none;
+
+  box-shadow: 0 12px 30px rgba(47,224,176,0.35);
+  transition: 0.3s ease;
+}
+
+.landing-page .big:hover {
+  transform: translateY(-5px);
+}
+
+
+/* ==========================================================
+   ANIMATIONS (Shared)
+========================================================== */
+
+@keyframes fadeUp {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes portalPulse {
+  0% { transform: scale(1); opacity: 0.75; }
+  50% { transform: scale(1.12); opacity: 1; }
+  100% { transform: scale(1); opacity: 0.75; }
+}
+
+@keyframes floatCore {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0); }
+}
+
+
+/* ==========================================================
+   MEDIA QUERIES — Perfect Responsive
+========================================================== */
+
+@media (max-width: 1100px) {
+  .landing-page .neo-portal-hero {
+    flex-direction: column;
+    text-align: center;
+    padding: 6rem 3rem;
+  }
+
+  .landing-page .portal-right {
+    width: 350px;
+    height: 350px;
+  }
+}
+
+@media (max-width: 780px) {
+  .landing-page .benefit-grid,
+  .landing-page .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .landing-page .neo-portal-hero {
+    padding: 5rem 2rem;
+  }
+}
+
+@media (max-width: 540px) {
+  .landing-page .benefit-grid,
+  .landing-page .features-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .landing-page .portal-left h1 {
+    font-size: 3rem;
+  }
+
+  .landing-page .portal-right {
+    scale: 0.8;
+  }
+}

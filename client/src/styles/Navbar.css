@@ -1,48 +1,119 @@
-.splitr-nav {
-  position: sticky;
-  top: 0;
+/* =====================================================
+   OUTER FLOATING WRAPPER (CENTERED NAVBAR)
+===================================================== */
+.neo-navbar-container {
   width: 100%;
-  z-index: 100;
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+  pointer-events: none;          /* prevents shifting content */
+}
 
-  padding: 18px 48px;
+/* =====================================================
+   MAIN NEUMORPHIC NAV BAR
+===================================================== */
+.neo-navbar {
+  padding: 20px 55px;            /* increased padding = wider bar */
+  background: #0d1115;           /* dark neumorphic background */
+  border-radius: 40px;           /* smooth rounded pill */
 
   display: flex;
-  justify-content: space-between;
+  gap: 65px;                     /* spacing between items */
   align-items: center;
 
-  background: rgba(255,255,255,0.015);
-  backdrop-filter: blur(18px) saturate(140%);
-  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  pointer-events: auto;          /* allows clicking */
 
-  border-bottom: 1px solid rgba(255,255,255,0.05);
+  /* soft shadows to match neumorphic look */
+  box-shadow:
+    6px 6px 18px rgba(0,0,0,0.55),
+    -6px -6px 18px rgba(255,255,255,0.03);
 }
 
-.nav-logo {
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--accent-1);
-}
-
-.nav-links {
+/* =====================================================
+   NAV ITEMS
+===================================================== */
+.neo-item {
   display: flex;
-  list-style: none;
-  gap: 32px;
-}
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
 
-.nav-links a {
-  color: rgba(255,255,255,0.85);
-  text-decoration: none;
+  color: rgba(255, 255, 255, 0.75);
   font-size: 15px;
-  font-weight: 500;
-  position: relative;
-  transition: .25s;
+  cursor: pointer;
+  transition: 0.25s ease;
+  user-select: none;
 }
 
-.nav-links a:hover {
-  color: var(--accent-1);
+/* Icons */
+.neo-icon {
+  font-size: 22px;
+  transition: 0.25s ease;
 }
-.navbar{display:flex;align-items:center;justify-content:space-between;padding:18px 36px;background:rgba(5,6,7,0.55);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,0.04)}
-.logo{font-weight:700;color:var(--accent);font-size:20px}
-.nav-links{display:flex;gap:28px}
-.nav-links a{color:rgba(255,255,255,0.9);text-decoration:none;font-weight:500}
-.nav-links a:hover{color:var(--accent)}
+
+/* Hover */
+.neo-item:not(.active):hover {
+  transform: translateY(-3px);
+  color: #ffffff;
+}
+
+/* =====================================================
+   ACTIVE PILL (Your Green Accent)
+===================================================== */
+.neo-item.active {
+  background: #161b21;
+  padding: 14px 30px;
+  border-radius: 22px;
+
+  color: #34d6a4;
+
+  /* Stronger neumorphic effect */
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  box-shadow:
+    inset 5px 5px 12px rgba(0, 0, 0, 0.5),
+    inset -4px -4px 10px rgba(255, 255, 255, 0.05),
+    0 0 18px rgba(52, 214, 164, 0.15);   /* green glow for clarity */
+}
+
+
+/* Active icon tint */
+.neo-item.active .neo-icon {
+  color: #34d6a4;
+}
+
+/* =====================================================
+   MOBILE RESPONSIVE
+===================================================== */
+@media (max-width: 600px) {
+  .neo-navbar {
+    padding: 16px 24px;
+    gap: 30px;
+  }
+  
+  .neo-item span {
+    display: none; /* hide labels on small screens */
+  }
+}
+.neo-item:hover {
+  background: #161b21;
+  padding: 14px 30px;
+  border-radius: 22px;
+
+  color: #34d6a4;
+  transform: translateY(-3px);
+
+  /* Clearer border */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+
+  /* Better visibility */
+  box-shadow:
+    inset 5px 5px 12px rgba(0, 0, 0, 0.5),
+    inset -4px -4px 10px rgba(255, 255, 255, 0.06),
+    0 0 20px rgba(52, 214, 164, 0.2);
+}
+
+.neo-item:hover .neo-icon {
+  color: #34d6a4;
+}
+

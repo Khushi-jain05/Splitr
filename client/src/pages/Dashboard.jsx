@@ -1,81 +1,236 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import "../styles/Dashboard.css";
+import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
-import { enableTilt } from "../utils/tilt";
-import { useNavigate } from "react-router-dom";   
+import "../styles/Dashboard.css";
+import { useNavigate } from "react-router-dom";
+import TripCard from "../components/TripCard";
 
 function Dashboard() {
-  const [user, setUser] = useState(null);
-  const navigate = useNavigate();  
 
-  
+  const navigate = useNavigate();
+
+  /* ===================================================
+      LOAD TRIPS FROM localStorage
+  ======================================================*/
+  const [trips, setTrips] = useState(() => {
+    const saved = localStorage.getItem("trips");
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  /* ===================================================
+      SAVE TRIPS TO localStorage WHENEVER THEY CHANGE
+  ======================================================*/
   useEffect(() => {
-    async function fetchUser() {
-      try {
-        const res = await axios.get("https://splitr-2grq.onrender.com/api/auth/me", {
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
-        });
+    localStorage.setItem("trips", JSON.stringify(trips));
+  }, [trips]);
 
-        console.log("USER FROM BACKEND:", res.data);
-        setUser(res.data);
-      } catch (err) {
-        console.error("USER FETCH FAILED:", err);
-      }
+
+  /* ===================================================
+      CREATE TRIP MODAL
+  ======================================================*/
+  const [showTripModal, setShowTripModal] = useState(false);
+  const [tripName, setTripName] = useState("");
+  const [tripDates, setTripDates] = useState("");
+
+  const handleCreateTrip = () => {
+    if (!tripName.trim()) return alert("Trip name is required");
+
+    const newTrip = {
+      id: tripName.toLowerCase().replace(/\s+/g, "-"),
+      name: tripName,
+      total: 0,
+      members: 1,
+      dates: tripDates || "Not set"
+    };
+
+    setTrips(prev => [...prev, newTrip]);
+
+    setTripName("");
+    setTripDates("");
+    setShowTripModal(false);
+  };
+
+
+  /* ===================================================
+      EXPENSE MODAL (OLD)
+  ======================================================*/
+  const [showModal, setShowModal] = useState(false);
+
+  const [title, setTitle] = useState("");
+  const [amount, setAmount] = useState("");
+  const [category, setCategory] = useState("Food");
+  const [paidBy, setPaidBy] = useState("You");
+  const [splitMethod, setSplitMethod] = useState("Equal");
+  const [expenses, setExpenses] = useState([]);
+
+  const handleSaveExpense = () => {
+    if (!title || !amount) {
+      alert("Please enter all fields");
+      return;
     }
 
-    fetchUser();
-  }, []);
+    const newExpense = {
+      title,
+      amount: Number(amount),
+      category,
+      paidBy,
+      splitMethod,
+      createdAt: new Date().toISOString(),
+    };
 
+    setExpenses(prev => [...prev, newExpense]);
+    setShowModal(false);
 
-  useEffect(() => {
-    const card = document.querySelector(".visual-wrap");
-    if (card) enableTilt(card);
-  }, []);
+    setTitle("");
+    setAmount("");
+    setCategory("Food");
+    setPaidBy("You");
+    setSplitMethod("Equal");
+  };
+
 
   return (
-    <div className="splitr-dashboard">
+    <div className="dashboard-page">
       <Navbar />
 
-      <main className="dashboard-hero fade-in-up">
-        <section className="hero-left">
-          
-          <p className="hero-kicker">Welcome, {user?.name || "Explorer"}</p>
+      {/* HEADER */}
+      <div className="dash-header">
+        <h1>Your Dashboard</h1>
 
-          <h1 className="hero-title">
-            Split Travel Costs.<br />
-            Track Budgets.<br />
-            Plan Smart.
-          </h1>
+        <div className="header-buttons">
+          <button className="trip-btn" onClick={() => setShowTripModal(true)}>
+            + Create Trip
+          </button>
 
-          <p className="hero-sub">
-            Splitr helps you track expenses, manage categories, settle payments instantly,
-            and plan trips with real-time budget insights.
-          </p>
+          <button className="add-btn" onClick={() => setShowModal(true)}>
+            + Add Expense
+          </button>
+        </div>
+      </div>
 
-          <div className="hero-cta">
-            
-            <button 
-              className="splitr-btn primary"
-              onClick={() => navigate("/")}    
-            >
-              Start a Trip
-            </button>
+      {/* ACTIVE TRIPS */}
+      <section className="section-block">
+        <h2>Active Trips</h2>
 
-            <button className="splitr-btn ghost">How it Works</button>
-          </div>
-        </section>
+        {trips.length === 0 && (
+          <p className="empty-text">No trips created yet.</p>
+        )}
 
-        <section className="hero-right">
-          <div className="visual-wrap">
-            <div className="floating-card">
-              <div className="ring"></div>
-              <div className="orb"></div>
-              <div className="shine"></div>
+        <div className="trip-grid">
+          {trips.map((trip) => (
+            <TripCard
+              key={trip.id}
+              id={trip.id}
+              name={trip.name}
+              total={trip.total}
+              members={trip.members}
+              dates={trip.dates}
+            />
+          ))}
+        </div>
+      </section>
+
+      {/* RECENT EXPENSES */}
+      <section className="section-block">
+        <h2>Recent Expenses</h2>
+
+        {expenses.length === 0 && <p className="empty-text">No expenses yet.</p>}
+
+        <div className="expense-list">
+          {expenses.map((exp, index) => (
+            <div key={index} className="expense-item">
+              <div>
+                <h4>{exp.title}</h4>
+                <small>{exp.category} • {exp.splitMethod}</small>
+              </div>
+              <p className="exp-amount">₹{exp.amount}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+
+      {/* CREATE TRIP MODAL */}
+      {showTripModal && (
+        <div className="modal-overlay">
+          <div className="expense-modal">
+            <h2>Create New Trip</h2>
+
+            <label>Trip Name</label>
+            <input
+              value={tripName}
+              onChange={(e) => setTripName(e.target.value)}
+              placeholder="Goa Trip"
+            />
+
+            <label>Trip Dates</label>
+            <input
+              value={tripDates}
+              onChange={(e) => setTripDates(e.target.value)}
+              placeholder="Jan 10 - Jan 14"
+            />
+
+            <div className="modal-actions">
+              <button className="cancel-btn" onClick={() => setShowTripModal(false)}>
+                Cancel
+              </button>
+              <button className="save-btn" onClick={handleCreateTrip}>
+                Create Trip
+              </button>
             </div>
           </div>
-        </section>
-      </main>
+        </div>
+      )}
+
+      {/* ADD EXPENSE MODAL */}
+      {showModal && (
+        <div className="modal-overlay">
+          <div className="expense-modal">
+            <h2>Add Expense</h2>
+
+            <label>Title</label>
+            <input value={title} onChange={(e) => setTitle(e.target.value)} />
+
+            <label>Amount</label>
+            <input value={amount} onChange={(e) => setAmount(e.target.value)} />
+
+            <label>Category</label>
+            <select value={category} onChange={(e) => setCategory(e.target.value)}>
+              <option>Food</option>
+              <option>Stay</option>
+              <option>Travel</option>
+              <option>Adventure</option>
+              <option>Shopping</option>
+              <option>Misc</option>
+            </select>
+
+            <label>Paid By</label>
+            <select value={paidBy} onChange={(e) => setPaidBy(e.target.value)}>
+              <option>You</option>
+              <option>Friend 1</option>
+              <option>Friend 2</option>
+            </select>
+
+            <label>Split Method</label>
+            <select value={splitMethod} onChange={(e) => setSplitMethod(e.target.value)}>
+              <option>Equal</option>
+              <option>Custom</option>
+              <option>Percentage</option>
+              <option>Selected Members</option>
+            </select>
+
+            <div className="modal-actions">
+              <button className="cancel-btn" onClick={() => setShowModal(false)}>
+                Cancel
+              </button>
+              <button className="save-btn" onClick={handleSaveExpense}>
+                Save
+              </button>
+            </div>
+
+          </div>
+        </div>
+      )}
+
     </div>
   );
 }

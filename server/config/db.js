@@ -7,7 +7,7 @@ const db = mysql.createConnection({
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
   ssl: {
-    rejectUnauthorized: false   // <-- This is the key fix
+    rejectUnauthorized: false
   }
 });
 
@@ -20,3 +20,4 @@ db.connect((err) => {
 });
 
 module.exports = db;
+
