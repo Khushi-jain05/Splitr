@@ -2,48 +2,30 @@ const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
 
-// Import DB (optional but recommended)
-require("./db/config");  // ensures DB connects on startup
+const authRoutes = require("./routes/auth");
+const groupRoutes = require("./src/groups/routes");
+const expenseRoutes = require("./src/expenses/routes");
 
 const app = express();
 
-// --------------------
-// CORS CONFIG
-// --------------------
+// CORS
 app.use(
   cors({
-    origin: [
-      "http://localhost:3000",
-      "https://splitr-git-main-khushijains-projects.vercel.app",
-      "https://splitr-sepia.vercel.app",
-    ],
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    origin: ["http://localhost:3000"],
     credentials: true,
   })
 );
 
 app.use(express.json());
 
-// --------------------
-// HEALTH CHECK
-// --------------------
 app.get("/", (req, res) => {
-  res.send("✅ Splitr backend is running...");
+  res.send("✅ Splitr backend running...");
 });
 
-// --------------------
 // ROUTES
-// --------------------
-const authRoutes = require("./routes/auth");
-const groupRoutes = require("./src/groups/routes");      // ⭐ Add group routes
-const expenseRoutes = require("./src/expenses/routes");  // ⭐ Add expense routes
-
 app.use("/api/auth", authRoutes);
 app.use("/api/groups", groupRoutes);
 app.use("/api/expenses", expenseRoutes);
 
-// --------------------
-// START SERVER
-// --------------------
-const PORT = process.env.PORT || 1000;
-app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => console.log(`🚀 Server running on ${PORT}`));
