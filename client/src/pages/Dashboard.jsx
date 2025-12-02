@@ -12,9 +12,9 @@ function Dashboard() {
       LOAD TRIPS FROM localStorage
   ======================================================*/
   const [trips, setTrips] = useState(() => {
-    const saved = localStorage.getItem("trips");
-    return saved ? JSON.parse(saved) : [];
+    return JSON.parse(localStorage.getItem("trips")) || [];
   });
+  
 
   /* ===================================================
       SAVE TRIPS TO localStorage WHENEVER THEY CHANGE
@@ -23,6 +23,10 @@ function Dashboard() {
     localStorage.setItem("trips", JSON.stringify(trips));
   }, [trips]);
 
+  /* ===========================
+      🔍 SEARCH BAR STATE
+  ============================*/
+  const [searchQuery, setSearchQuery] = useState("");
 
   /* ===================================================
       CREATE TRIP MODAL
@@ -48,7 +52,6 @@ function Dashboard() {
     setTripDates("");
     setShowTripModal(false);
   };
-
 
   /* ===================================================
       EXPENSE MODAL (OLD)
@@ -111,21 +114,34 @@ function Dashboard() {
       <section className="section-block">
         <h2>Active Trips</h2>
 
+        {/* 🔍 SEARCH BAR */}
+        <input
+          type="text"
+          className="search-bar"
+          placeholder="Search trips by name..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+
         {trips.length === 0 && (
           <p className="empty-text">No trips created yet.</p>
         )}
 
         <div className="trip-grid">
-          {trips.map((trip) => (
-            <TripCard
-              key={trip.id}
-              id={trip.id}
-              name={trip.name}
-              total={trip.total}
-              members={trip.members}
-              dates={trip.dates}
-            />
-          ))}
+          {trips
+            .filter(trip =>
+              trip.name.toLowerCase().includes(searchQuery.toLowerCase())
+            )
+            .map((trip) => (
+              <TripCard
+                key={trip.id}
+                id={trip.id}
+                name={trip.name}
+                total={trip.total}
+                members={trip.members}
+                dates={trip.dates}
+              />
+            ))}
         </div>
       </section>
 
@@ -147,7 +163,6 @@ function Dashboard() {
           ))}
         </div>
       </section>
-
 
       {/* CREATE TRIP MODAL */}
       {showTripModal && (

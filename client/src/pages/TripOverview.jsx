@@ -22,6 +22,26 @@ function TripOverview() {
   // EXPENSE STATE
   const [expenses, setExpenses] = useState([]);
 
+  // ⭐ ADDED — Load saved expenses for this trip
+  useEffect(() => {
+    const stored = JSON.parse(localStorage.getItem(`expenses-${id}`)) || [];
+    setExpenses(stored);
+  }, [id]);
+
+  // ⭐ ADDED — Save trip expenses whenever they change
+  useEffect(() => {
+    localStorage.setItem(`expenses-${id}`, JSON.stringify(expenses));
+
+    // Also update total in dashboard trips
+    const trips = JSON.parse(localStorage.getItem("trips")) || [];
+    const updated = trips.map((t) =>
+      t.id === id
+        ? { ...t, total: expenses.reduce((a, b) => a + b.amount, 0) }
+        : t
+    );
+    localStorage.setItem("trips", JSON.stringify(updated));
+  }, [expenses, id]);
+
   // CATEGORY TOTALS (LIVE)
   const [categoryTotals, setCategoryTotals] = useState({
     Food: 0,
@@ -31,16 +51,6 @@ function TripOverview() {
     Shopping: 0,
     Misc: 0,
   });
-
-  // MODAL STATE
-  const [showModal, setShowModal] = useState(false);
-
-  // FORM STATES
-  const [title, setTitle] = useState("");
-  const [amount, setAmount] = useState("");
-  const [category, setCategory] = useState("Food");
-  const [paidBy, setPaidBy] = useState("You");
-  const [splitMethod, setSplitMethod] = useState("Equal");
 
   // UPDATE CATEGORY TOTALS
   useEffect(() => {
@@ -60,6 +70,16 @@ function TripOverview() {
     setCategoryTotals(totals);
   }, [expenses]);
 
+  // MODAL STATE
+  const [showModal, setShowModal] = useState(false);
+
+  // FORM STATES
+  const [title, setTitle] = useState("");
+  const [amount, setAmount] = useState("");
+  const [category, setCategory] = useState("Food");
+  const [paidBy, setPaidBy] = useState("You");
+  const [splitMethod, setSplitMethod] = useState("Equal");
+
   // SAVE NEW EXPENSE
   const handleSave = () => {
     if (!title || !amount) {
@@ -76,6 +96,7 @@ function TripOverview() {
       createdAt: new Date(),
     };
 
+    // ⭐ ADDED — Save new expense
     setExpenses((prev) => [...prev, newExp]);
 
     setShowModal(false);
