@@ -22,9 +22,11 @@ const Navbar = () => {
   };
 
   const logout = () => {
-    localStorage.clear();
+    localStorage.removeItem("token"); 
+    localStorage.removeItem("userId"); 
     navigate("/");
   };
+  
 
   return (
     <div className="neo-navbar-container">
