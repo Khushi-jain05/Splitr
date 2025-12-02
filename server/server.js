@@ -11,7 +11,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(
   cors({
-    origin: ["http://localhost:3000",'https://splitr-3b3y.vercel.app/'],
+    origin: ["http://localhost:3000",'https://splitr-3b3y.vercel.app'],
     credentials: true,
   })
 );
