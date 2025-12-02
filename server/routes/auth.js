@@ -10,6 +10,7 @@ const verifyToken = require("../middleware/authMiddleware");
 
 console.log(db)
 router.post("/signup", async (req, res) => {
+  console.log("REQ BODY ON RENDER:", req.body); 
   try {
     const { name, email, password } = req.body;
 
