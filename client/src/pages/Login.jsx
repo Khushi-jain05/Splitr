@@ -25,7 +25,7 @@ function Login() {
         : { phone: form.phone, password: form.password };
 
     try {
-      const res = await axios.post(`${API_URL}/api/auth/login`, payload);
+      const res = await axios.post(`${API_URL}/api/auth/`, payload);
 
       localStorage.setItem("token", res.data.token);
       navigate("/home");
