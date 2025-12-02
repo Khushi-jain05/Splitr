@@ -566,4 +566,18 @@
       padding: 2rem;
     }
   }
+  .delete-expense-btn {
+    background: transparent;
+    border: none;
+    color: #ff5c5c;
+    font-size: 20px;
+    cursor: pointer;
+    margin-left: 12px;
+  }
+  
+  .exp-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
   

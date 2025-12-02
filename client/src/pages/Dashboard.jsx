@@ -3,25 +3,27 @@ import Navbar from "../components/Navbar";
 import "../styles/Dashboard.css";
 import { useNavigate } from "react-router-dom";
 import TripCard from "../components/TripCard";
+import getUserId from "../utils/getUserId";   // ⭐ ADDED
 
 function Dashboard() {
 
   const navigate = useNavigate();
+  const userId = getUserId();  // ⭐ ADDED
 
   /* ===================================================
-      LOAD TRIPS FROM localStorage
+      LOAD TRIPS FROM localStorage (USER SPECIFIC)
   ======================================================*/
   const [trips, setTrips] = useState(() => {
-    return JSON.parse(localStorage.getItem("trips")) || [];
+    return JSON.parse(localStorage.getItem(`trips-${userId}`)) || [];
   });
-  
 
   /* ===================================================
-      SAVE TRIPS TO localStorage WHENEVER THEY CHANGE
+      SAVE TRIPS (USER SPECIFIC)
   ======================================================*/
   useEffect(() => {
-    localStorage.setItem("trips", JSON.stringify(trips));
-  }, [trips]);
+    if (!userId) return;
+    localStorage.setItem(`trips-${userId}`, JSON.stringify(trips));
+  }, [trips, userId]);
 
   /* ===========================
       🔍 SEARCH BAR STATE

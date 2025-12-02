@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import "../styles/TripOverview.css";
+import getUserId from "../utils/getUserId";
+
 
 // Chart.js
 import { Pie } from "react-chartjs-2";
@@ -15,6 +17,8 @@ import {
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 function TripOverview() {
+const userId = getUserId();
+
   const { id } = useParams();
 
   const categories = ["Food", "Stay", "Travel", "Adventure", "Shopping", "Misc"];
@@ -22,27 +26,30 @@ function TripOverview() {
   // EXPENSE STATE
   const [expenses, setExpenses] = useState([]);
 
-  // ⭐ ADDED — Load saved expenses for this trip
+  // ⭐ Load saved expenses for this trip
   useEffect(() => {
     const stored = JSON.parse(localStorage.getItem(`expenses-${id}`)) || [];
     setExpenses(stored);
   }, [id]);
 
-  // ⭐ ADDED — Save trip expenses whenever they change
+  // ⭐ Save expenses to storage + update dashboard totals
   useEffect(() => {
     localStorage.setItem(`expenses-${id}`, JSON.stringify(expenses));
 
-    // Also update total in dashboard trips
-    const trips = JSON.parse(localStorage.getItem("trips")) || [];
+    // Update dashboard trips
+    const userId = getUserId();
+const trips = JSON.parse(localStorage.getItem(`trips-${userId}`)) || [];
+
     const updated = trips.map((t) =>
       t.id === id
         ? { ...t, total: expenses.reduce((a, b) => a + b.amount, 0) }
         : t
     );
-    localStorage.setItem("trips", JSON.stringify(updated));
+    localStorage.setItem(`trips-${userId}`, JSON.stringify(updated));
+
   }, [expenses, id]);
 
-  // CATEGORY TOTALS (LIVE)
+  // CATEGORY TOTALS
   const [categoryTotals, setCategoryTotals] = useState({
     Food: 0,
     Stay: 0,
@@ -96,7 +103,6 @@ function TripOverview() {
       createdAt: new Date(),
     };
 
-    // ⭐ ADDED — Save new expense
     setExpenses((prev) => [...prev, newExp]);
 
     setShowModal(false);
@@ -105,6 +111,12 @@ function TripOverview() {
     setCategory("Food");
     setPaidBy("You");
     setSplitMethod("Equal");
+  };
+
+  // ⭐ DELETE EXPENSE
+  const handleDelete = (index) => {
+    const updated = expenses.filter((_, i) => i !== index);
+    setExpenses(updated);
   };
 
   // PIE CHART CONFIG
@@ -231,7 +243,18 @@ function TripOverview() {
                 <h4>{exp.title}</h4>
                 <small>{exp.category} • {exp.splitMethod}</small>
               </div>
-              <p className="exp-amount">₹{exp.amount}</p>
+
+              <div className="exp-actions">
+                <p className="exp-amount">₹{exp.amount}</p>
+
+                {/* ⭐ DELETE BUTTON */}
+                <button
+                  className="delete-expense-btn"
+                  onClick={() => handleDelete(idx)}
+                >
+                  ✖
+                </button>
+              </div>
             </div>
           ))}
         </div>
