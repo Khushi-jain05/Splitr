@@ -3,10 +3,10 @@ import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import "../styles/Auth.css";
 
-// 🔥 Auto-detect API (Local OR Vercel)
+
 const API_URL =
   process.env.REACT_APP_API_URL?.trim() ||
-  "http://localhost:10000"; // fallback for local dev
+  "http://localhost:3001"; 
 
 function Login() {
   const [form, setForm] = useState({ email: "", phone: "", password: "" });

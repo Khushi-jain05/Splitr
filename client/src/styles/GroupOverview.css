@@ -1,0 +1,131 @@
+.group-page {
+    min-height: 100vh;
+    background: radial-gradient(circle at top,
+        rgba(47,224,176,0.08),
+        #000);
+    padding-top: 80px;
+    font-family: Inter, sans-serif;
+    color: white;
+  }
+  
+  /* HEADER */
+  .group-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 8rem;
+    align-items: center;
+  }
+  
+  .group-header h1 {
+    font-size: 2.7rem;
+    background: linear-gradient(180deg, #fff, #2fe0b0);
+    -webkit-background-clip: text;
+    color: transparent;
+  }
+  
+  .add-btn {
+    padding: 0.7rem 1.6rem;
+    background: #2fe0b0;
+    border: none;
+    border-radius: 30px;
+    color: #000;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  
+  /* MEMBERS */
+  .members-section {
+    padding: 3rem 8rem;
+  }
+  
+  .member-head {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .add-small {
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    background: transparent;
+    border: 1px solid #2fe0b0;
+    color: #2fe0b0;
+  }
+  
+  .member-list {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .member-card {
+    background: rgba(255,255,255,0.06);
+    padding: 0.7rem 1rem;
+    border-radius: 12px;
+  }
+  
+  /* CATEGORY BLOCK */
+  .category-section {
+    padding: 2rem 8rem;
+  }
+  
+  .category-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 1rem;
+  }
+  
+  .category-card {
+    padding: 1.3rem;
+    background: rgba(255,255,255,0.05);
+    border-radius: 16px;
+    border: 1px solid rgba(47,224,176,0.15);
+    text-align: center;
+  }
+  
+  /* BALANCE */
+  .balance-section {
+    padding: 3rem 8rem;
+  }
+  
+  .balance-item {
+    display: flex;
+    justify-content: space-between;
+    background: rgba(255,255,255,0.05);
+    padding: 0.9rem 1.3rem;
+    margin: 8px 0;
+    border-radius: 12px;
+  }
+  
+  .balance-item.positive {
+    border-left: 4px solid #2fe0b0;
+  }
+  
+  .balance-item.negative {
+    border-left: 4px solid #ff6363;
+  }
+  
+  /* EXPENSE LIST */
+  .expense-section {
+    padding: 3rem 8rem;
+  }
+  
+  .expense-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 1.2rem;
+    background: rgba(255,255,255,0.05);
+    margin-bottom: 12px;
+    border-radius: 12px;
+  }
+  
+  .amt {
+    color: #2fe0b0;
+    font-weight: 700;
+  }
+  
+  /* LOADING */
+  .loading {
+    text-align: center;
+    margin-top: 200px;
+  }
+  

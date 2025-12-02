@@ -5,6 +5,7 @@ import Landing from "./pages/Landing";
 import Dashboard from "./pages/Dashboard";
 import LoadingBar from "./components/LoadingBar";
 import TripOverview from "./pages/TripOverview";
+import Groups from "./pages/Groups"; 
 import "./App.css";
 
 function App() {
@@ -17,6 +18,8 @@ function App() {
         <Route path="/home" element={<Landing />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/trip/:id" element={<TripOverview />} />
+        <Route path="/groups" element={<Groups />} />
+
 
       </Routes>
     </Router>
