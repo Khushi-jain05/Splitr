@@ -116,4 +116,37 @@
 .neo-item:hover .neo-icon {
   color: #34d6a4;
 }
+.more-wrapper {
+  position: relative;
+}
 
+.more-dropdown {
+  position: absolute;
+  bottom: 60px; /* shows above navbar */
+  right: 0;
+  background: rgba(20,20,20,0.95);
+  border: 1px solid rgba(47,224,176,0.3);
+  border-radius: 10px;
+  padding: 10px 15px;
+  width: 140px;
+  backdrop-filter: blur(6px);
+  animation: fadeIn 0.2s ease;
+  z-index: 1000;
+}
+
+.more-dropdown p {
+  margin: 0;
+  padding: 8px 0;
+  cursor: pointer;
+  color: #ff4d4d;
+  font-weight: 600;
+}
+
+.more-dropdown p:hover {
+  opacity: 0.7;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}

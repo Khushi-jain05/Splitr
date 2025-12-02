@@ -1,17 +1,38 @@
 import React, { useState } from "react";
 import "../styles/AddMemberModal.css";
+import { API_BASE } from "../utils/api";
 
-function AddMemberModal({ groupId, onClose }) {
+function AddMemberModal({ groupId, onClose, refresh }) {
   const [name, setName] = useState("");
 
   const handleAdd = async () => {
-    await fetch(`http://localhost:1000/groups/${groupId}/members`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name }),
-    });
+    if (!name.trim()) {
+      alert("Please enter a member name");
+      return;
+    }
 
-    onClose();
+    try {
+      const res = await fetch(`${API_BASE}/groups/${groupId}/members`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        alert(data.error || "Unable to add member.");
+        return;
+      }
+
+      // Refresh group members after adding
+      if (refresh) refresh();
+
+      onClose();
+    } catch (err) {
+      console.error("ADD MEMBER ERROR:", err);
+      alert("Server error. Please try again.");
+    }
   };
 
   return (

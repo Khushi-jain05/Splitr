@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../styles/CreateGroupModal.css";
+import { API_BASE } from "../utils/api";
 
 function CreateGroupModal({ close, refresh }) {
   const [name, setName] = useState("");
@@ -10,18 +11,26 @@ function CreateGroupModal({ close, refresh }) {
       return;
     }
 
-    const res = await fetch("http://localhost:1000/groups", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name })
-    });
+    try {
+      const res = await fetch(`${API_BASE}/groups`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name }),
+      });
 
-    const data = await res.json();
-    if (res.ok) {
-      refresh();
-      close();
-    } else {
-      alert(data.error);
+      const data = await res.json();
+
+      if (!res.ok) {
+        alert(data.error || "Unable to create group");
+        return;
+      }
+
+      refresh();  // refresh group list
+      close();    // close modal
+
+    } catch (err) {
+      console.error("CREATE GROUP ERROR:", err);
+      alert("Server error");
     }
   };
 
@@ -31,10 +40,10 @@ function CreateGroupModal({ close, refresh }) {
         <h2>Create Group</h2>
 
         <label>Group Name</label>
-        <input 
+        <input
+          placeholder="e.g., Goa Friends"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder="e.g., Goa Friends"
         />
 
         <div className="modal-actions">
