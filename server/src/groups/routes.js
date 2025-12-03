@@ -5,16 +5,13 @@ const { validateGroup } = require("./middlewares");
 const {
   createGroup,
   getAllGroups,
-  getSingleGroup
+  getSingleGroup,
+  deleteGroup
 } = require("./controllers");
-
-// CREATE GROUP
 router.post("/", validateGroup, createGroup);
-
-// GET ALL GROUPS
+router.delete("/:groupId", deleteGroup);
 router.get("/", getAllGroups);
-
-// GET ONE GROUP
 router.get("/:groupId", getSingleGroup);
+
 
 module.exports = router;

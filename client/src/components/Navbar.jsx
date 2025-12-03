@@ -60,10 +60,10 @@ const Navbar = () => {
         </div>
 
         {/* Travel Expense */}
-        <div className="neo-item">
+        {/* <div className="neo-item">
           <RiWallet3Line className="neo-icon" />
           <span>Travel Expense</span>
-        </div>
+        </div> */}
 
         {/* More + Logout Dropdown */}
         <div 

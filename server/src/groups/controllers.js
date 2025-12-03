@@ -1,9 +1,10 @@
 const {
   createGroupService,
   getAllGroupsService,
-  getSingleGroupService
+  getSingleGroupService,
+  deleteGroupService
 } = require("./services");
-
+const pool = require("../../config/db");
 // CREATE GROUP
 exports.createGroup = async (req, res) => {
   try {
@@ -14,6 +15,19 @@ exports.createGroup = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+// DELETE GROUP
+exports.deleteGroup = async (req, res) => {
+  try {
+    await pool.query("DELETE FROM trip_groups WHERE id = ?", [
+      req.params.groupId,
+    ]);
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
 
 // GET ALL GROUPS
 exports.getAllGroups = async (req, res) => {

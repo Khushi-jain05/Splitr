@@ -29,3 +29,10 @@ module.exports.getSingleGroupService = async (groupId) => {
   );
   return group;
 };
+module.exports.deleteGroupService = async (id) => {
+  const [result] = await pool.query(
+    "DELETE FROM trip_groups WHERE id = ?",
+    [id]
+  );
+  return result;
+};

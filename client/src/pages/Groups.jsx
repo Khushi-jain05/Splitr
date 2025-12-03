@@ -3,12 +3,11 @@ import Navbar from "../components/Navbar";
 import "../styles/Groups.css";
 import { API_BASE } from "../utils/api";
 
-
 function Groups() {
   const [groups, setGroups] = useState([]);
   const [groupName, setGroupName] = useState("");
 
-  const API =API_BASE;
+  const API = API_BASE;
 
   // Fetch all groups
   const fetchGroups = async () => {
@@ -56,6 +55,21 @@ function Groups() {
     }
   };
 
+  // ⭐ DELETE GROUP (NEW)
+  const deleteGroup = async (groupId) => {
+    if (!window.confirm("Are you sure you want to delete this group?")) return;
+  
+    try {
+      await fetch(`${API}/api/groups/${groupId}`, {
+        method: "DELETE",
+      });
+  
+      fetchGroups();
+    } catch (err) {
+      console.error("Delete Group Error:", err);
+    }
+  };
+  
   return (
     <div className="groups-page">
       <Navbar />
@@ -79,10 +93,24 @@ function Groups() {
         ) : (
           groups.map((g) => (
             <div key={g.id} className="group-card">
+
               <h3>{g.name}</h3>
-              <button onClick={() => (window.location.href = `/group/${g.id}`)}>
-                Open Group
-              </button>
+
+              <div className="group-card-actions">
+                <button onClick={() => (window.location.href = `/group/${g.id}`)}>
+                  Open Group
+                </button>
+
+                {/* ⭐ DELETE BUTTON (NEW) */}
+                <button
+                  className="delete-btn"
+                  onClick={() => deleteGroup(g.id)}
+                  style={{ background: "#ff4d4d", color: "white" }}
+                >
+                  Delete
+                </button>
+              </div>
+
             </div>
           ))
         )}
