@@ -1,12 +1,12 @@
 const express = require("express");
+const router = express.Router();
+
 const { validateGroup } = require("./middlewares");
 const {
   createGroup,
   getAllGroups,
   getSingleGroup
 } = require("./controllers");
-
-const router = express.Router();
 
 // CREATE GROUP
 router.post("/", validateGroup, createGroup);

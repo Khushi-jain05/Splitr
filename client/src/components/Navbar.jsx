@@ -14,7 +14,7 @@ const Navbar = () => {
   const location = useLocation();
   const path = location.pathname;
 
-  const [showMenu, setShowMenu] = useState(false); // dropdown state
+  const [showMenu, setShowMenu] = useState(false); 
 
   const isActive = (route) => {
     if (route === "/dashboard" && path.startsWith("/trip")) return true; 

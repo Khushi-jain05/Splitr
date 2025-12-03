@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import "../styles/Groups.css";
+import { API_BASE } from "../utils/api";
+
 
 function Groups() {
   const [groups, setGroups] = useState([]);
   const [groupName, setGroupName] = useState("");
 
-  const API = process.env.REACT_APP_API_URL;
+  const API =API_BASE;
 
   // Fetch all groups
   const fetchGroups = async () => {
