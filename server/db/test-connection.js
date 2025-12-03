@@ -15,13 +15,14 @@ const pool = require("./config");   // <-- your promise pool (db/config.js)
 
     // 1️⃣ trip_groups
     await pool.query(`
-      CREATE TABLE IF NOT EXISTS trip_groups (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        name VARCHAR(255) NOT NULL,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-      );
-    `);
-    console.log("✔ trip_groups table OK");
+        CREATE TABLE IF NOT EXISTS trip_groups (
+          id INT AUTO_INCREMENT PRIMARY KEY,
+          name VARCHAR(255) NOT NULL,
+          user_id INT NOT NULL,
+          created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        );
+      `);
+      
 
 
     // 2️⃣ group_members

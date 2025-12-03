@@ -11,19 +11,11 @@ function CreateGroupModal({ close, refresh }) {
       return;
     }
 
-    const user = JSON.parse(localStorage.getItem("user"));
-    const userId = user?.id;
-
-    if (!userId) {
-      alert("User not logged in");
-      return;
-    }
-
     try {
       const res = await fetch(`${API_BASE}/groups`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, userId }),   // ⭐ SEND USER ID
+        body: JSON.stringify({ name }),
       });
 
       const data = await res.json();
@@ -33,8 +25,8 @@ function CreateGroupModal({ close, refresh }) {
         return;
       }
 
-      refresh();  
-      close();
+      refresh();  // refresh group list
+      close();    // close modal
 
     } catch (err) {
       console.error("CREATE GROUP ERROR:", err);

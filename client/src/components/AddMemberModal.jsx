@@ -25,7 +25,7 @@ function AddMemberModal({ groupId, onClose, refresh }) {
         return;
       }
 
-      // Refresh group members after adding
+     
       if (refresh) refresh();
 
       onClose();

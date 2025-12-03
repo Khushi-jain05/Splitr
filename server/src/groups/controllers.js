@@ -8,7 +8,7 @@ const {
 
 const pool = require("../../config/db");
 
-
+// CREATE GROUP
 exports.createGroup = async (req, res) => {
   try {
     const { name, userId } = req.body;
@@ -16,10 +16,12 @@ exports.createGroup = async (req, res) => {
     const group = await createGroupService(name, userId);
 
     res.status(201).json(group);
+
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 };
+
 
 // DELETE GROUP
 exports.deleteGroup = async (req, res) => {
@@ -65,7 +67,8 @@ exports.getMembers = async (req, res) => {
 // GET ALL GROUPS
 exports.getAllGroups = async (req, res) => {
   try {
-    const groups = await getAllGroupsService();
+    const { userId } = req.query;   // ?userId=12
+    const groups = await getAllGroupsService(userId);
     res.json(groups);
   } catch (err) {
     res.status(500).json({ error: err.message });

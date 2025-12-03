@@ -15,7 +15,9 @@ function Groups() {
   // Fetch all groups
   const fetchGroups = async () => {
     try {
-      const res = await fetch(`${API}/api/groups`);
+        const user = JSON.parse(localStorage.getItem("user"));
+        const res = await fetch(`${API}/api/groups?userId=${user?.id}`);
+        
       const data = await res.json();
 
       if (!Array.isArray(data)) {
@@ -35,29 +37,34 @@ function Groups() {
     fetchGroups();
   }, []);
 
-  // Create new group
   const createGroup = async () => {
     if (!groupName.trim()) {
       alert("Enter a group name");
       return;
     }
-
+  
     try {
+      const user = JSON.parse(localStorage.getItem("user"));
+  
       const res = await fetch(`${API}/api/groups`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: groupName }),
+        body: JSON.stringify({
+          name: groupName,
+          userId: user?.id
+        }),
       });
-
+  
       const data = await res.json();
       console.log("Group created:", data);
-
+  
       setGroupName("");
       fetchGroups();
     } catch (err) {
       console.error("Create Group Error:", err);
     }
   };
+  
 
   // Delete Group
   const deleteGroup = async (groupId) => {
