@@ -2,14 +2,19 @@ const {
   createGroupService,
   getAllGroupsService,
   getSingleGroupService,
-  deleteGroupService
+  deleteGroupService,
+  addMemberService
 } = require("./services");
+
 const pool = require("../../config/db");
-// CREATE GROUP
+
+
 exports.createGroup = async (req, res) => {
   try {
-    const { name } = req.body;
-    const group = await createGroupService(name);
+    const { name, userId } = req.body;
+
+    const group = await createGroupService(name, userId);
+
     res.status(201).json(group);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -19,14 +24,14 @@ exports.createGroup = async (req, res) => {
 // DELETE GROUP
 exports.deleteGroup = async (req, res) => {
   try {
-    await pool.query("DELETE FROM trip_groups WHERE id = ?", [
-      req.params.groupId,
-    ]);
+    await deleteGroupService(req.params.groupId);
     res.json({ success: true });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 };
+
+// ADD MEMBER
 exports.addMember = async (req, res) => {
   try {
     const { name } = req.body;
@@ -40,6 +45,8 @@ exports.addMember = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+// GET MEMBERS
 exports.getMembers = async (req, res) => {
   try {
     const { groupId } = req.params;

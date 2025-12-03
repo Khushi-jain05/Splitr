@@ -15,11 +15,20 @@ module.exports.createGroupService = async (name) => {
   }
 };
 
+
 // GET ALL GROUPS
 module.exports.getAllGroupsService = async () => {
   const [rows] = await pool.query("SELECT * FROM trip_groups ORDER BY id DESC");
   return rows;
 };
+module.exports.createGroupService = async (name, userId) => {
+  const [result] = await pool.query(
+    "INSERT INTO trip_groups (name, user_id) VALUES (?, ?)",
+    [name, userId]
+  );
+  return { id: result.insertId, name };
+};
+
 
 // GET SINGLE GROUP
 module.exports.getSingleGroupService = async (groupId) => {
