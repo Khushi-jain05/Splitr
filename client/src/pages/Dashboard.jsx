@@ -56,6 +56,16 @@ function Dashboard() {
   };
 
   /* ===================================================
+      ⭐ DELETE TRIP FUNCTION (NEW)
+  ======================================================*/
+  const deleteTrip = (id) => {
+    if (!window.confirm("Are you sure you want to delete this trip?")) return;
+
+    const updatedTrips = trips.filter((t) => t.id !== id);
+    setTrips(updatedTrips);
+  };
+
+  /* ===================================================
       EXPENSE MODAL (OLD)
   ======================================================*/
   const [showModal, setShowModal] = useState(false);
@@ -142,6 +152,9 @@ function Dashboard() {
                 total={trip.total}
                 members={trip.members}
                 dates={trip.dates}
+                
+                // ⭐ Delete Trip Button handler passed here
+                onDelete={() => deleteTrip(trip.id)}
               />
             ))}
         </div>
