@@ -2,21 +2,22 @@
 const pool = require("../../config/db");   // ✅ correct path to promise pool
 
 // CREATE GROUP
-module.exports.createGroupService = async (name, userId) => {
-  const [result] = await pool.query(
-    "INSERT INTO trip_groups (name, user_id) VALUES (?, ?)",
-    [name, userId]
-  );
-
-  return { id: result.insertId, name, userId };
+module.exports.createGroupService = async (name) => {
+  try {
+    const [result] = await pool.query(
+      "INSERT INTO trip_groups (name) VALUES (?)",
+      [name]
+    );
+    return { id: result.insertId, name };
+  } catch (err) {
+    console.error("❌ createGroupService ERROR:", err);
+    throw err;
+  }
 };
 
-
-module.exports.getAllGroupsService = async (userId) => {
-  const [rows] = await pool.query(
-    "SELECT * FROM trip_groups WHERE user_id = ? ORDER BY id DESC",
-    [userId]
-  );
+// GET ALL GROUPS
+module.exports.getAllGroupsService = async () => {
+  const [rows] = await pool.query("SELECT * FROM trip_groups ORDER BY id DESC");
   return rows;
 };
 

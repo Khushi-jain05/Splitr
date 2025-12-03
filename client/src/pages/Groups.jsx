@@ -15,9 +15,7 @@ function Groups() {
   // Fetch all groups
   const fetchGroups = async () => {
     try {
-        const user = JSON.parse(localStorage.getItem("user"));
-        const res = await fetch(`${API}/api/groups?userId=${user?.id}`);
-        
+      const res = await fetch(`${API}/api/groups`);
       const data = await res.json();
 
       if (!Array.isArray(data)) {
@@ -37,22 +35,19 @@ function Groups() {
     fetchGroups();
   }, []);
 
-  const createGroup = async () => {
+  // Create new group
+  // Create new group
+const createGroup = async () => {
     if (!groupName.trim()) {
       alert("Enter a group name");
       return;
     }
   
     try {
-      const user = JSON.parse(localStorage.getItem("user"));
-  
       const res = await fetch(`${API}/api/groups`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: groupName,
-          userId: user?.id
-        }),
+        body: JSON.stringify({ name: groupName }),
       });
   
       const data = await res.json();
