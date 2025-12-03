@@ -27,7 +27,33 @@ exports.deleteGroup = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+exports.addMember = async (req, res) => {
+  try {
+    const { name } = req.body;
+    const { groupId } = req.params;
 
+    const member = await addMemberService(groupId, name);
+
+    res.status(201).json(member);
+  } catch (err) {
+    console.error("❌ Add Member Error:", err);
+    res.status(500).json({ error: err.message });
+  }
+};
+exports.getMembers = async (req, res) => {
+  try {
+    const { groupId } = req.params;
+
+    const [members] = await pool.query(
+      "SELECT * FROM group_members WHERE group_id = ?",
+      [groupId]
+    );
+
+    res.json(members);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
 
 // GET ALL GROUPS
 exports.getAllGroups = async (req, res) => {

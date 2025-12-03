@@ -12,7 +12,7 @@ function AddMemberModal({ groupId, onClose, refresh }) {
     }
 
     try {
-      const res = await fetch(`${API_BASE}/groups/${groupId}/members`, {
+      const res = await fetch(`${API_BASE}/api/groups/${groupId}/members`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name }),

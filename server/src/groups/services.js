@@ -36,3 +36,10 @@ module.exports.deleteGroupService = async (id) => {
   );
   return result;
 };
+module.exports.addMemberService = async (groupId, name) => {
+  const [result] = await pool.query(
+    "INSERT INTO group_members (group_id, name) VALUES (?, ?)",
+    [groupId, name]
+  );
+  return { id: result.insertId, name };
+};

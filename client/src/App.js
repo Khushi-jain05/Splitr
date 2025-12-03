@@ -6,6 +6,7 @@ import Dashboard from "./pages/Dashboard";
 import LoadingBar from "./components/LoadingBar";
 import TripOverview from "./pages/TripOverview";
 import Groups from "./pages/Groups"; 
+import GroupOverview from "./pages/GroupOverview";
 import "./App.css";
 
 function App() {
@@ -19,6 +20,8 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/trip/:id" element={<TripOverview />} />
         <Route path="/groups" element={<Groups />} />
+        <Route path="/group/:id" element={<GroupOverview />} />
+
 
 
       </Routes>

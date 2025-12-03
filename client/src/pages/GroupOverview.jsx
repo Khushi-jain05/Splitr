@@ -4,9 +4,10 @@ import Navbar from "../components/Navbar";
 import AddMemberModal from "../components/AddMemberModal";
 import AddExpenseModal from "../components/AddExpenseModal";
 import "../styles/GroupOverview.css";
+import { API_BASE } from "../utils/api";
 
 function GroupOverview() {
-  const { id } = useParams(); // groupId from URL
+  const { id } = useParams();
 
   const [group, setGroup] = useState(null);
   const [members, setMembers] = useState([]);
@@ -15,43 +16,39 @@ function GroupOverview() {
   const [showMemberModal, setShowMemberModal] = useState(false);
   const [showExpenseModal, setShowExpenseModal] = useState(false);
 
-  /* =======================================================
-     FETCH GROUP DETAILS
-  ======================================================= */
+  const API = API_BASE;
+
+  // Fetch group data
   const fetchGroup = async () => {
-    const res = await fetch(`http://localhost:1000/groups`);
+    const res = await fetch(`${API}/api/groups`);
     const data = await res.json();
     const found = data.find((g) => g.id === Number(id));
     setGroup(found || null);
   };
 
-  /* =======================================================
-     FETCH MEMBERS
-  ======================================================= */
+  // Fetch members
   const fetchMembers = async () => {
-    const res = await fetch(`http://localhost:1000/groups/${id}/members`);
+    const res = await fetch(`${API}/api/groups/${id}/members`);
     const data = await res.json();
     setMembers(data);
   };
 
-  /* =======================================================
-     FETCH EXPENSES
-  ======================================================= */
+  // Fetch expenses
   const fetchExpenses = async () => {
-    const res = await fetch(`http://localhost:1000/expenses/${id}`);
+    const res = await fetch(`${API}/api/groups/${id}/expenses`);
     const data = await res.json();
     setExpenses(data);
   };
+  
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     fetchGroup();
     fetchMembers();
     fetchExpenses();
   }, []);
 
-  /* =======================================================
-     CATEGORY TOTALS
-  ======================================================= */
+  // Category totals
   const categories = ["Food", "Stay", "Travel", "Adventure", "Shopping", "Misc"];
 
   const categoryTotals = categories.reduce((acc, cat) => {
@@ -61,9 +58,7 @@ function GroupOverview() {
     return acc;
   }, {});
 
-  /* =======================================================
-     WHO OWES WHOM CALC (Simple Equal Split)
-  ======================================================= */
+  // Who owes whom
   const totalSpent = expenses.reduce((sum, e) => sum + Number(e.amount), 0);
   const perPerson = members.length ? totalSpent / members.length : 0;
 
@@ -75,7 +70,7 @@ function GroupOverview() {
     return {
       name: m.name,
       paid: paidByMember,
-      balance: paidByMember - perPerson, // +ve means they should receive, -ve means they owe
+      balance: paidByMember - perPerson,
     };
   });
 
@@ -85,7 +80,7 @@ function GroupOverview() {
 
       {group ? (
         <>
-          {/* HEADER */}
+          {/* Header */}
           <div className="group-header">
             <h1>{group.name}</h1>
             <button className="add-btn" onClick={() => setShowExpenseModal(true)}>
@@ -93,7 +88,7 @@ function GroupOverview() {
             </button>
           </div>
 
-          {/* MEMBERS BLOCK */}
+          {/* Members */}
           <section className="members-section">
             <div className="member-head">
               <h2>Group Members</h2>
@@ -111,7 +106,7 @@ function GroupOverview() {
             </div>
           </section>
 
-          {/* CATEGORY BLOCK */}
+          {/* Categories */}
           <section className="category-section">
             <h2>Category Breakdown</h2>
 
@@ -125,7 +120,7 @@ function GroupOverview() {
             </div>
           </section>
 
-          {/* WHO OWES WHOM */}
+          {/* Balances */}
           <section className="balance-section">
             <h2>Who Owes Whom</h2>
 
@@ -144,7 +139,7 @@ function GroupOverview() {
             ))}
           </section>
 
-          {/* EXPENSE LIST */}
+          {/* All Expenses */}
           <section className="expense-section">
             <h2>All Expenses</h2>
 
@@ -167,7 +162,7 @@ function GroupOverview() {
         <p className="loading">Loading...</p>
       )}
 
-      {/* MODALS */}
+      {/* Modals */}
       {showMemberModal && (
         <AddMemberModal
           groupId={id}

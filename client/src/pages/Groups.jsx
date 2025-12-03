@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import Navbar from "../components/Navbar";
 import "../styles/Groups.css";
 import { API_BASE } from "../utils/api";
@@ -6,6 +8,7 @@ import { API_BASE } from "../utils/api";
 function Groups() {
   const [groups, setGroups] = useState([]);
   const [groupName, setGroupName] = useState("");
+  const navigate = useNavigate();
 
   const API = API_BASE;
 
@@ -27,6 +30,7 @@ function Groups() {
     }
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     fetchGroups();
   }, []);
@@ -55,21 +59,21 @@ function Groups() {
     }
   };
 
-  // ⭐ DELETE GROUP (NEW)
+  // Delete Group
   const deleteGroup = async (groupId) => {
     if (!window.confirm("Are you sure you want to delete this group?")) return;
-  
+
     try {
       await fetch(`${API}/api/groups/${groupId}`, {
         method: "DELETE",
       });
-  
+
       fetchGroups();
     } catch (err) {
       console.error("Delete Group Error:", err);
     }
   };
-  
+
   return (
     <div className="groups-page">
       <Navbar />
@@ -93,15 +97,13 @@ function Groups() {
         ) : (
           groups.map((g) => (
             <div key={g.id} className="group-card">
-
               <h3>{g.name}</h3>
 
               <div className="group-card-actions">
-                <button onClick={() => (window.location.href = `/group/${g.id}`)}>
+                <button onClick={() => navigate(`/group/${g.id}`)}>
                   Open Group
                 </button>
 
-                {/* ⭐ DELETE BUTTON (NEW) */}
                 <button
                   className="delete-btn"
                   onClick={() => deleteGroup(g.id)}
@@ -110,7 +112,6 @@ function Groups() {
                   Delete
                 </button>
               </div>
-
             </div>
           ))
         )}
