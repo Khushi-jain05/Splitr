@@ -15,7 +15,7 @@ function AddExpenseModal({ groupId, onClose, refresh }) {
     }
 
     try {
-      const res = await fetch(`${API_BASE}/expenses/${groupId}`, {
+      const res = await fetch(`${API_BASE}/api/expenses/${groupId}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -33,10 +33,9 @@ function AddExpenseModal({ groupId, onClose, refresh }) {
         return;
       }
 
-      // Optional: refresh group details
-      if (refresh) refresh();
+      if (refresh) refresh();   // refresh expenses list
+      onClose();                // close modal
 
-      onClose();
     } catch (err) {
       console.error("ADD EXPENSE ERROR:", err);
       alert("Server error. Try again.");

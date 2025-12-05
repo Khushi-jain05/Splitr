@@ -3,23 +3,19 @@ import Navbar from "../components/Navbar";
 import "../styles/Dashboard.css";
 import { useNavigate } from "react-router-dom";
 import TripCard from "../components/TripCard";
-import getUserId from "../utils/getUserId";   // ⭐ ADDED
+import getUserId from "../utils/getUserId";   
 
 function Dashboard() {
 
   const navigate = useNavigate();
-  const userId = getUserId();  // ⭐ ADDED
+  const userId = getUserId(); 
 
-  /* ===================================================
-      LOAD TRIPS FROM localStorage (USER SPECIFIC)
-  ======================================================*/
+ 
   const [trips, setTrips] = useState(() => {
     return JSON.parse(localStorage.getItem(`trips-${userId}`)) || [];
   });
 
-  /* ===================================================
-      SAVE TRIPS (USER SPECIFIC)
-  ======================================================*/
+
   useEffect(() => {
     if (!userId) return;
     localStorage.setItem(`trips-${userId}`, JSON.stringify(trips));
@@ -55,9 +51,7 @@ function Dashboard() {
     setShowTripModal(false);
   };
 
-  /* ===================================================
-      ⭐ DELETE TRIP FUNCTION (NEW)
-  ======================================================*/
+
   const deleteTrip = (id) => {
     if (!window.confirm("Are you sure you want to delete this trip?")) return;
 
@@ -122,11 +116,11 @@ function Dashboard() {
         </div>
       </div>
 
-      {/* ACTIVE TRIPS */}
+
       <section className="section-block">
         <h2>Active Trips</h2>
 
-        {/* 🔍 SEARCH BAR */}
+   
         <input
           type="text"
           className="search-bar"
